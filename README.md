@@ -7,7 +7,7 @@ Agenda:
 (a) Need for Container Orchestration
 (b) Overview of Kubernetes Architecture and Concepts
 
-2. Refer to IBM public Cloud-Container-services.pptx for:
+2. Refer to IBM public Cloud-Container-services.pptx in "HandsOn" directory for:
 Functionalities provided by IBM Cloud Clusters
 
 3. The "HandsOn" directory for HandsOn with examples and
