@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podonfreecluster #pod name
+spec:
+  containers:
+  - image: rabbitmq
+    name: container-name
