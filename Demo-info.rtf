@@ -1,0 +1,128 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red36\green29\blue255;\red0\green0\blue0;\red54\green73\blue206;
+\red0\green0\blue0;\red255\green255\blue255;\red35\green53\blue243;\red42\green50\blue253;\red20\green24\blue251;
+\red24\green0\blue239;\red255\green94\blue89;\red45\green36\blue248;}
+{\*\expandedcolortbl;;\cspthree\c20880\c25772\c100000;\cssrgb\c0\c0\c0;\cspthree\c29564\c38267\c81687;
+\csgray\c0;\csgray\c100000;\cspthree\c21610\c32243\c92821;\cspthree\c24074\c31813\c95806;\cspthree\c14057\c23276\c95080;
+\cspthree\c13663\c15399\c91441;\cspthree\c95045\c49490\c44311;\cspthree\c24446\c27044\c94189;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww33040\viewh17960\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs48 \cf2 \expnd0\expndtw0\kerning0
+1- Setting up CLI on your system\cf3 \
+			https://console.bluemix.net/docs/cli/reference/bluemix_cli/get_started.html#getting-started\
+			\cf0 \kerning1\expnd0\expndtw0 https://console.bluemix.net/docs/containers/cs_cli_install.html#cs_cli_install\
+\
+			Following in based on Ubuntu:\
+			\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+			\cf4 Install bx\cf0 \
+			1-  \cf5 \cb6 \CocoaLigature0 wget https://clis.ng.bluemix.net/download/bluemix-cli/latest/linux64\
+			2- tar -xzvf linux64\
+			3- cd Bluemix_CLI/\
+			4- ./install_bluemix_cli\cf0 \cb1 \CocoaLigature1 \
+\cf3 \expnd0\expndtw0\kerning0
+\
+			\cf7 Install cs:\cf3 \
+			1- bx plugin install container-service -r Bluemix\
+			2- bx plugin list\
+\
+			\cf8 Install kubectl:\cf3 \
+			1- \cf5 \cb6 \kerning1\expnd0\expndtw0 \CocoaLigature0 wget https://storage.googleapis.com/kubernetes-release/release/v1.8.8/bin/linux/amd64/kubectl\
+			2-		chmod 777 kubectl\
+			3-		mv kubectl /usr/local/bin/kubectl\cf3 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1  \
+\
+			\cf9 Install CR\cf3 \
+			1- bx plugin install container-registry -r Bluemix\
+			2- bx plugin list\
+\
+			\cf10 Install Docker:\cf3 \
+			\'97\'97\'97\'97\'97\'97\'97\
+			1- add the GPG key for the official Docker repository to the system\
+				curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -\
+			2- Add the Docker repository\
+				sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"\
+\
+			3- sudo apt-get update\
+			4- Make sure you are about to install from the Docker repo instead of the default Ubuntu\
+				apt-cache policy docker-ce\
+			5- sudo apt-get install -y docker-ce\
+			\cf11 Optional:\cf3 \
+			6- \cf5 \cb6 \kerning1\expnd0\expndtw0 \CocoaLigature0 sudo usermod -aG docker ubuntu\
+			7- su - ubuntu\
+			8- sudo usermod -aG docker ubuntu\cf3 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\
+\cf12 2- \kerning1\expnd0\expndtw0 Setting/Working on IBM provided Kubernetes cluster \cf0 \
+\
+	Public cloud \'97> https://console.bluemix.net/\
+\
+	a- Login to container services:\
+		a- Login to Bluemix\
+			bx login -a https://api.ng.bluemix.net\
+\
+		b- Login to container services\
+			bx cs init --host https://us-south.containers.bluemix.net\
+		\
+	b- Working with IBM Clusters\
+	1- Review locations\
+		$\cf3 \expnd0\expndtw0\kerning0
+bx cs locations\
+	2- Get details of machine types\
+		$bx cs machine-types dal10\
+	3- Check vlans\
+		$\cf5 \cb6 \kerning1\expnd0\expndtw0 \CocoaLigature0 bx cs vlans dal10 | grep Cruiser\cf3 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+	4- Create cluster\
+			Free/lite:\
+				$bx cs cluster-create --name freeDemoCluster\
+\
+			Standard cluster:\
+				$bx cs credentials-set --infrastructure-username $SL_USER_ID  --infrastructure-api-key $SL_USER_API_KEY\
+				$bx cs cluster-create --name demo_std_cluster --location dal10 --public-vlan \cf5 \cb6 \kerning1\expnd0\expndtw0 \CocoaLigature0 1204\cf3 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1  --private-vlan \cf5 \cb6 \kerning1\expnd0\expndtw0 \CocoaLigature0 1312\cf3 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1  --machine-type u1c.2x4 --workers 1\
+	5- Add/Delete worker on the cluster\
+		$\cf5 \cb6 \kerning1\expnd0\expndtw0 \CocoaLigature0 bx cs worker-add --cluster \cf3 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 demo_std_cluster\cf5 \cb6 \kerning1\expnd0\expndtw0 \CocoaLigature0   --workers 1 --public-vlan 1204 --private-vlan 1312 --machine-type \cf3 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 u1c.2x4\cf5 \cb6 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+		$bx cs worker-rm \cf3 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 demo_std_cluster\cf5 \cb6 \kerning1\expnd0\expndtw0 \CocoaLigature0  <worker1 id>\
+\
+	6- Checking dashboard\
+		 kubectl proxy\
+		 \cf3 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 http://localhost:8001/ui\cf5 \cb6 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\cf3 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+	7- Create a POD on cluster\
+	8- Create a POD with local volume\
+\
+	9- Working with your own docker image\
+		1- Creating image and pushing to private registry on IBM Cloud\
+			$\cf5 \cb6 \kerning1\expnd0\expndtw0 \CocoaLigature0 docker build -t registry.ng.bluemix.net/test_new/myownimage:latest .\
+			$docker push registry.ng.bluemix.net/test_new/myownimage:latest\cf3 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+		2- Creating deployment/pod on IBM provided \cf0 \kerning1\expnd0\expndtw0 Kubernetes\cf3 \expnd0\expndtw0\kerning0
+ clusters\
+		3- \cf5 \cb6 \kerning1\expnd0\expndtw0 \CocoaLigature0 bx account spaces\cf3 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+			\
+	10- Create the PV/PVC\
+			a- Create PVC\
+			b- Create POD with persistent storage\
+\
+\
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth1140\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth1140\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\partightenfactor0
+\cf3 \cell 
+\pard\intbl\itap1\pardeftab720\sl280\partightenfactor0
+\cf3 \cell \lastrow\row
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3 \
+}

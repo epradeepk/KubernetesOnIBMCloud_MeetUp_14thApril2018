@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: testping #pod name
+spec:
+  containers:
+  - image: rabbitmq #registry.ng.bluemix.net/test_new/jenkins #rabbitmq #image
+    name: container-name

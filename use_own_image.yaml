@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ownimagepod #pod name
+spec:
+  containers:
+  - image: registry.ng.bluemix.net/test_new/myownimage
+    name: container-name

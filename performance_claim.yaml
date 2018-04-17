@@ -1,0 +1,13 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: per-pvc # user can choose any name as per kubernetes
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "ibmc-file-custom"
+spec:
+  accessModes:
+    - ReadWriteMany # access mode
+  resources:
+    requests:
+      storage: 20Gi
+      iops: "500"
